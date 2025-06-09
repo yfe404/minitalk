@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yfeunteu <yfeunteu@student.42prague.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/09 13:00:22 by yfeunteu          #+#    #+#             */
+/*   Updated: 2025/06/09 13:01:14 by yfeunteu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include <signal.h>
 #include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
-void signal_handler(int signo, siginfo_t *info, void *context)
-{	
+void	signal_handler(int signo, siginfo_t *info, void *context)
+{
 	static unsigned char	data = 0;
 	static char				nbits = 0;
 	pid_t					pidof_sender;
@@ -22,17 +33,17 @@ void signal_handler(int signo, siginfo_t *info, void *context)
 	kill(pidof_sender, SIGUSR1);
 }
 
-int main(void)
+int	main(void)
 {
-	struct sigaction sa_action;
+	struct sigaction	sa_action;
 
-	printf("%d\n", getpid());
+	ft_putnbr_fd(getpid(), STDOUT_FILENO);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	sa_action.sa_flags = SA_SIGINFO;
 	sa_action.sa_sigaction = signal_handler;
 	sigemptyset(&sa_action.sa_mask);
 	sigaction(SIGUSR1, &sa_action, NULL);
 	sigaction(SIGUSR2, &sa_action, NULL);
-
-	while(1)
+	while (1)
 		pause();
 }
