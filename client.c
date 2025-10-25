@@ -6,7 +6,7 @@
 /*   By: yfeunteu <yfeunteu@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:05:32 by yfeunteu          #+#    #+#             */
-/*   Updated: 2025/06/09 13:06:02 by yfeunteu         ###   ########.fr       */
+/*   Updated: 2025/10/25 19:26:08 by yfeunteu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	signal_handler(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("Received ACK from server.\n", 1);
 }
 
