@@ -19,6 +19,7 @@ void	signal_handler(int signo, siginfo_t *info, void *context)
 	static char				nbits = 0;
 	pid_t					pidof_sender;
 
+	(void)context;
 	pidof_sender = info->si_pid;
 	if (signo == SIGUSR1)
 		data |= 1 << (7 - nbits++);
