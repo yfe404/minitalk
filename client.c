@@ -20,7 +20,7 @@ void	signal_handler(int sig)
 	ft_putstr_fd("Received ACK from server.\n", 1);
 }
 
-int	encode_char(int pid, char c)
+void	encode_char(int pid, char c)
 {
 	int	i;
 
