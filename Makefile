@@ -1,18 +1,31 @@
-all: client server
+NAME_SERVER = server
+NAME_CLIENT = client
 
-server: server.c libft/libft.a
-	gcc -I./libft server.c -L./libft -lft -o server
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-client: client.c libft/libft.a
-re: clean
-	make all
+all: $(NAME_SERVER) $(NAME_CLIENT)
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME_SERVER): server.c $(LIBFT)
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) server.c -L$(LIBFT_DIR) -lft -o $(NAME_SERVER)
+
+$(NAME_CLIENT): client.c $(LIBFT)
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) client.c -L$(LIBFT_DIR) -lft -o $(NAME_CLIENT)
 
 clean:
-	rm -f client server
+	$(MAKE) -C $(LIBFT_DIR) clean
+	rm -f *.o
 	rm -rf *.dSYM
-	rm -rf *.o
-	rm -rf libft/*.o
-	rm -rf libft/*.dSYM
 
-.PHONY: all clean
+fclean: clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	rm -f $(NAME_SERVER) $(NAME_CLIENT)
+
+re: fclean all
+
+.PHONY: all clean fclean re
